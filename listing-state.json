@@ -1,43 +1,42 @@
 {
   "schemaVersion": 1,
-  "intent": "approved-listing",
-  "phase": "listed",
+  "intent": "approved-update",
+  "phase": "candidate",
   "plugin": {
     "root": ".",
     "repositoryUrl": "https://github.com/AI-Scarlett/dsh-wecom-cli",
     "manifestPath": "package.json",
     "installPath": null,
     "packageName": "dsh-wecom-cli",
-    "version": "0.1.0",
-    "commit": "7f2f75c0ffebfcf556bc802276b1b675279c124d",
-    "entryIds": ["dsh-wecom-cli-skill-provider"]
+    "version": "0.1.1",
+    "commit": "1b905cefbab874c2c88c7778e2f9df0bfad5b300",
+    "entryIds": ["dsh-wecom-cli-host", "dsh-wecom-cli-skill-provider"]
   },
   "registry": {
     "root": "https://github.com/AI-Scarlett/dsh-safe-plugin-manager",
     "catalogPath": "registry/catalog.json",
-    "baseCommit": "3de278238dc03f1e49e6924d4750bcb566fb24da",
     "entryId": "dsh-wecom-cli",
-    "status": "approved",
-    "pullRequest": "https://github.com/AI-Scarlett/dsh-safe-plugin-manager/pull/34",
-    "mergedCommit": "d0db8f081dc46a3a16a504e00debcba007888da7"
+    "currentStatus": "blocked",
+    "intendedStatus": "approved",
+    "blockingPullRequest": "https://github.com/AI-Scarlett/dsh-safe-plugin-manager/pull/35",
+    "blockingMergeCommit": "16c69d26bc3b837302e38a8c0685856b788f064f"
   },
   "gates": {
-    "hostFit": "adapter-compatible",
     "sourceContract": "passed",
-    "automatedChecks": "passed",
+    "automatedChecks": "passed-10-tests",
     "disposableRuntime": "passed-web-headless",
-    "immutableSource": "remote-verified",
-    "catalogCandidate": "passed",
-    "registryCi": "passed",
-    "mergedCatalog": "passed",
-    "publicMarketplace": "passed-dsh-gui-and-github-pages; dsh.store-nginx-mirror-propagation-pending",
-    "realProfile": "unchanged"
+    "immutableSource": "local-commit-only",
+    "catalogCandidate": "prepared",
+    "registryCi": "pending",
+    "mergedCatalog": "blocked-v0.1.0",
+    "publicMarketplace": "blocked-no-install-actions",
+    "realProfile": "unchanged",
+    "externalAccount": "unverified"
   },
-  "evidence": ["evidence.json", "docs/VERIFICATION.md"],
-  "nextGate": "Optional: confirm the separate dsh.store nginx mirror has propagated the merged catalog",
+  "nextGate": "Publish and read back the exact v0.1.1 Commit, then run current Registry validation and fixed-source verification",
   "authorizations": {
-    "repositoryRelease": "authorized-personal-github",
-    "registryContribution": "single-use-confirmations-consumed",
+    "repositoryRelease": "authorized-by-user",
+    "registryContribution": "authorized-by-user-for-v0.1.1-hardening",
     "realProfileMutation": false
   }
 }
