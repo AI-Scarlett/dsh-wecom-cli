@@ -1,11 +1,11 @@
 {
   "dumpConfig": {
     "verified": true,
-    "evidence": "2026-08-18: official DSH rc.7 CLI loaded local v0.2.0 in a disposable web Profile; dump-config contained both Bundle entries, cold boot stayed running on port 3081, root/setup API/plugin Client returned HTTP 200, the missing-CLI state was truthful, and all 14 Skills loaded with zero warnings."
+    "evidence": "2026-08-18: official DSH rc.7 CLI loaded local v0.3.0 in a disposable web Profile; dump-config contained both Bundle entries and cold boot stayed running on isolated port 3082. Root and plugin Client returned HTTP 200. The setup API moved from installed:false through installing to installed:true/version 1.1.0 after one confirmed fixed-argv install into a disposable npm prefix."
   },
   "isolatedRuntime": {
     "verified": true,
-    "evidence": "2026-08-18: disposable web/headless app help cold boots exited 0 without wecom-cli present; official rc.7 FileSystemSkillProvider discovered and fully loaded all 14 rewritten Skills with zero warnings. Host bridge unit tests prove fixed argv, official subprocess spec, no-spawn rejection, budgets, redaction, and withheld stderr."
+    "evidence": "2026-08-18: disposable web Profile cold booted with no system wecom-cli. The confirmed install used only the temporary npm prefix, then Host fallback discovery resolved that prefix without changing the system PATH. Host bridge and onboarding tests prove fixed argv, exact intent/confirmation, no-spawn rejection, budgets, redaction, and withheld install stderr."
   },
   "realProfile": {
     "verified": false,
@@ -13,6 +13,6 @@
   },
   "externalReadback": {
     "verified": false,
-    "evidence": "No enterprise WeCom account, CLI binary, credential, network, or business operation acceptance was performed."
+    "evidence": "The official CLI package was installed only into a disposable npm prefix. No enterprise WeCom account, QR scan, credential, or business-operation acceptance was performed."
   }
 }

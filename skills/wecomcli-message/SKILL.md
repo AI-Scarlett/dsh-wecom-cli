@@ -1,9 +1,9 @@
 ---
 name: wecomcli-message
-description: 只读列出当前企业微信消息会话范围。v0.2.0 暂停发送文本、文件或媒体消息。
+description: 只读列出当前企业微信消息会话范围。v0.3.0 暂停发送文本、文件或媒体消息。
 ---
 
-# wecomcli-message（v0.2.0 安全只读模式）
+# wecomcli-message（v0.3.0 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 

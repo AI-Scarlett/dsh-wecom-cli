@@ -1,6 +1,6 @@
 {
   "name": "dsh-wecom-cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Controlled read-only DSH Host bridge and Skill adapter for the official WeCom CLI",
   "type": "module",
   "main": "./index.mjs",

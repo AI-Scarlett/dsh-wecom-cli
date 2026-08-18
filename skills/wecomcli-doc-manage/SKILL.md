@@ -1,9 +1,9 @@
 ---
 name: wecomcli-doc-manage
-description: 只读搜索企业微信文档。v0.2.0 暂停改名、成员和加入规则修改。
+description: 只读搜索企业微信文档。v0.3.0 暂停改名、成员和加入规则修改。
 ---
 
-# wecomcli-doc-manage（v0.2.0 安全只读模式）
+# wecomcli-doc-manage（v0.3.0 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 

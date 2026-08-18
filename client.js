@@ -21,10 +21,12 @@ window.__ModuleLoader__.load({
       return payload.value
     }
     function SetupPanel() {
-      const [state, setState] = useState(null); const [confirmation, setConfirmation] = useState(''); const [message, setMessage] = useState('')
+      const [state, setState] = useState(null); const [confirmation, setConfirmation] = useState(''); const [installConfirmation, setInstallConfirmation] = useState(''); const [message, setMessage] = useState('')
       const refresh = useCallback(async () => { try { setState(await post('status')); setMessage('') } catch (error) { setMessage(error.message) } }, [])
       useEffect(() => { refresh(); const timer = setInterval(refresh, 2500); return () => clearInterval(timer) }, [refresh])
       const copyInstall = async () => { await navigator.clipboard.writeText(state.installCommand); setMessage('安装命令已复制，请在终端执行后回来刷新。') }
+      const install = async () => { try { setState(await post('install', { confirmation: installConfirmation }, 'install')); setMessage('正在安装企业微信官方 CLI，完成后会自动检测。') } catch (error) { setMessage(error.message) } }
+      const cancelInstall = async () => { try { setState(await post('cancel-install', {}, 'cancel-install')); setMessage('已请求取消安装。') } catch (error) { setMessage(error.message) } }
       const authorize = async () => { try { setState(await post('authorize', { confirmation }, 'authorize')); setMessage('授权已启动，请使用企业微信扫描二维码。') } catch (error) { setMessage(error.message) } }
       const cancel = async () => { try { setState(await post('cancel', {}, 'cancel')); setMessage('授权已取消。') } catch (error) { setMessage(error.message) } }
       const test = async () => { try { await post('test'); setMessage('连接成功，可以在对话中使用企业微信只读查询。'); await refresh() } catch (error) { setMessage(error.message) } }
@@ -32,7 +34,15 @@ window.__ModuleLoader__.load({
       return React.createElement('section', { style: styles.root },
         React.createElement('div', null, React.createElement('h2', { style: { margin: 0 } }, '企业微信'), React.createElement('p', { style: styles.muted }, '安装 CLI、扫码授权、连接测试和能力说明。插件不会显示或接收 Bot Secret。')),
         React.createElement('div', { style: styles.card }, React.createElement('h3', { style: { marginTop: 0 } }, '1. 官方 CLI'),
-          state?.installed ? React.createElement('p', null, `已安装 ${state.version || '版本未知'}`) : React.createElement(React.Fragment, null, React.createElement('p', { style: styles.muted }, '尚未检测到 wecom-cli。'), React.createElement('div', { style: styles.code }, state?.installCommand || 'npm install --global @wecom/cli@1.1.0'), React.createElement('button', { style: styles.button, onClick: copyInstall }, '复制安装命令'))),
+          state?.installed ? React.createElement('p', null, `已安装 ${state.version || '版本未知'}`) : React.createElement(React.Fragment, null,
+            React.createElement('p', { style: styles.muted }, state?.install?.state === 'installing' ? '正在安装官方 wecom-cli，请稍候…' : '尚未检测到 wecom-cli。输入 INSTALL WECOM CLI 后可直接安装。'),
+            React.createElement('div', { style: styles.code }, state?.installCommand || 'npm install --global @wecom/cli@1.1.0'),
+            React.createElement('div', { style: styles.row },
+              React.createElement('input', { style: styles.input, value: installConfirmation, disabled: state?.install?.state === 'installing', onChange: event => setInstallConfirmation(event.target.value), placeholder: 'INSTALL WECOM CLI' }),
+              React.createElement('button', { style: styles.button, disabled: installConfirmation !== 'INSTALL WECOM CLI' || state?.install?.state === 'installing', onClick: install }, '安装官方 CLI'),
+              React.createElement('button', { style: styles.button, onClick: copyInstall }, '复制命令'),
+              state?.install?.state === 'installing' && React.createElement('button', { style: styles.button, onClick: cancelInstall }, '取消安装')),
+            state?.install?.error && React.createElement('p', { style: styles.muted, role: 'alert' }, state.install.error))),
         React.createElement('div', { style: styles.card }, React.createElement('h3', { style: { marginTop: 0 } }, '2. 企业微信授权'),
           React.createElement('p', { style: styles.muted }, state?.authorized ? '已授权。' : '输入 AUTHORIZE WECOM 后启动官方扫码授权；二维码五分钟失效。'),
           state?.installed && !state?.authorized && React.createElement('div', { style: styles.row }, React.createElement('input', { style: styles.input, value: confirmation, onChange: event => setConfirmation(event.target.value), placeholder: 'AUTHORIZE WECOM' }), React.createElement('button', { style: styles.button, disabled: confirmation !== 'AUTHORIZE WECOM', onClick: authorize }, '开始扫码授权')),

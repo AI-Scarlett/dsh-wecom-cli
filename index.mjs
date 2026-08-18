@@ -11,7 +11,7 @@ export function apply(ctx) {
   const onboarding = createWecomOnboarding({ subprocess: ctx.subprocess })
   ctx.tools.register(defineTool({
     name: 'wecom_cli_read',
-    description: 'Run one bounded, read-only, allowlisted official WeCom CLI operation. This is the supported business-operation path for dsh-wecom-cli v0.2.0. Account onboarding is handled separately in the settings page. The Tool rejects writes, uploads, downloads, arbitrary commands, secrets, local paths, effectful formulas, broad SQL, and shell syntax.',
+    description: 'Run one bounded, read-only, allowlisted official WeCom CLI operation. This is the supported business-operation path for dsh-wecom-cli v0.3.0. Account onboarding is handled separately in the settings page. The Tool rejects writes, uploads, downloads, arbitrary commands, secrets, local paths, effectful formulas, broad SQL, and shell syntax.',
     parameters: {
       operation: {
         type: 'string',
