@@ -1,9 +1,17 @@
 {
   "name": "dsh-wecom-cli",
-  "version": "0.1.0",
-  "description": "DSH Skill adapter for the official WeCom CLI",
+  "version": "0.1.1",
+  "description": "Controlled read-only DSH Host bridge and Skill adapter for the official WeCom CLI",
   "type": "module",
+  "main": "./index.mjs",
+  "exports": {
+    ".": "./index.mjs",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
   "files": [
+    "index.mjs",
+    "lib",
     "cordis.patch.yml",
     "skills",
     "README.md",
@@ -25,6 +33,7 @@
     "test": "node --test test/*.test.mjs"
   },
   "peerDependencies": {
+    "@deepseek-ai/dsh-tools": ">=0.1.0-rc.7",
     "@deepseek-ai/dsh-skill-filesystem": ">=0.1.0-rc.7"
   },
   "repository": {

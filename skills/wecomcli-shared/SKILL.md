@@ -1,58 +1,30 @@
 ---
 name: wecomcli-shared
-description: wecom-cli 业务技能的公共只读前置检查、身份解析和通用输出约束。任何 wecomcli-* 技能准备执行 wecom-cli 命令前，都必须同时读取本技能，检查 CLI 是否已由用户独立安装、版本是否不低于 1.1.0，以及企业微信凭证是否已由用户完成授权。本技能绝不自动安装或升级外部 CLI，也不自动发起账号授权。
+description: dsh-wecom-cli v0.1.1 的公共安全边界。所有企业微信业务技能必须通过 Host Tool wecom_cli_read 执行有限、只读、可脱敏的官方 CLI 查询；禁止直接运行 Shell、Python、curl、HTTP、wecom-cli 命令或自动安装和授权。
 ---
 
-# wecom-cli 公共前置检查
+# WeCom CLI 公共安全边界
 
-本技能提供所有 `wecomcli-*` 业务技能共用的只读 CLI、版本与授权状态检查。它不安装软件、不修改 DSH Profile、不读取凭据文件，也不代替具体业务技能。
+## 唯一执行入口
 
-## 安全边界
+只能调用 DSH Host Tool `wecom_cli_read`。不得调用 bash、终端、Python、curl、wget、任意 HTTP 工具或直接执行 `wecom-cli`。
 
-- 外部运行时 `@wecom/cli` 必须由用户在 DSH 插件安装之外单独安装或升级。
-- 账号授权必须由用户明确发起并在企业微信官方流程中完成；不得替用户自动开始扫码、手动输入 Secret 或修改凭据。
-- 只允许调用固定的 `wecom-cli` 命令和参数，不得用 curl、Python、任意 Shell 或其他客户端绕过它。
-- 不读取、打印、复制或上传 `credentials.enc`、加密密钥、Token、Secret、Cookie、环境变量值或日志中的敏感字段。
-- 插件安装成功仅代表 Skills 已挂载，不代表外部 CLI 已安装、账号已授权或企业微信业务能力可用。
+Host Bridge 使用固定 argv 和 `shell: false`，仅开放枚举中的只读操作，并限制输入、分页、运行时间和输出字节数。
 
-## Step 1：只读检查 CLI 安装与版本
+## 前置检查
 
-执行：
+1. 调用 `wecom_cli_read`，`operation: "status"`。
+2. 调用 `wecom_cli_read`，`operation: "auth_status"`。
+3. 任一步失败、版本不满足或未授权时停止。不得安装软件、升级 CLI、启动授权、生成二维码或索取 Secret。
 
-```bash
-wecom-cli --version
-```
+## v0.1.1 禁止能力
 
-- 成功且版本不低于 `1.1.0`：继续 Step 2。
-- 命令不存在、执行失败或版本过低：立即停止业务操作，说明需要用户按适配器 README 中的官方前置步骤独立安装或升级。不得在当前流程中自动运行包管理器。
+- 发送、创建、更新、删除、取消、覆盖、追加、导入、上传、下载、重命名和 Webhook 写入。
+- SQL、effectful formula（OPENLINK、ADDRECORD、MODIFYRECORDS）、本地路径、URL、密码、Token、Bot Secret 和能力链接。
+- 任意命令、Shell 插值、重复查询和超过 3 页的分页。
 
-## Step 2：只读检查授权状态
+若用户要求上述能力，明确说明当前安全版本只提供受控只读查询，不得寻找替代工具绕过。
 
-执行：
+## 输出
 
-```bash
-wecom-cli auth show --status
-```
-
-- 输出 `authorized`：前置检查通过，可以返回具体业务技能。
-- 输出 `unauthorized`：停止业务操作，说明需要用户明确发起企业微信官方授权流程。不得自动启动授权、生成二维码或索要 Bot Secret。
-- 命令报错或输出不是上述状态：停止并原样概述非敏感错误，不猜测授权状态。
-
-## 通用输出约束：内部 ID 禁止外露
-
-- 最终回复禁止展示 `userid`、`open_vid`、`department_id`、`chat_id`、`mail_id`、`media_id`、`file_id`、`space_id`、`folder_id`、`docid`、`content_id`、`msg_id`、游标等内部标识。
-- 内部 ID 只可在当前业务调用链中使用，不写入文件、日志、长期记忆或面向用户的卡片。
-- 使用姓名、部门、邮箱、主题、文档名、群名、标题或可读链接描述对象。
-- 多候选选择使用序号与可读信息，不用 ID 让用户辨认。
-- 用户索要内部 ID 时，说明它属于内部调用字段，并继续用可读信息帮助完成实际任务。
-
-## 文件、网络与业务写操作
-
-- 文件上传、下载、导入或导出前，必须使用业务 Skill 声明的路径、格式和大小约束；约束缺失时停止并询问，不扩大到任意目录。
-- 发送消息、修改文档/表格、日程、会议、待办、微盘或邮件等写操作，只在用户明确提出该业务结果、目标唯一且参数完整时执行。
-- 接口失败时停止，不用其他网络工具或未声明命令绕过。
-- 不把成功响应推断成接收方已阅读、会议已参加或外部设备已同步。
-
-## 获取个人身份
-
-只有业务流程确实需要机器人或授权人身份时，才可调用 `wecom-cli identity whoami`。返回的内部 ID 只在当前调用链内使用，最终回复只展示可读身份信息。
+Host Bridge 会脱敏内部 ID、本地路径、Secret 和 URL。不得尝试恢复、猜测或要求用户粘贴这些值。只用可读名称和摘要回答。

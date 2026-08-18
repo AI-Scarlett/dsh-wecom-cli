@@ -1,46 +1,36 @@
 # Verification Status
 
-- Outcome: **LISTED in the DSH GUI marketplace**.
-- Adapter repository: https://github.com/AI-Scarlett/dsh-wecom-cli
-- Release tag: `v0.1.0`.
-- Immutable install source: `7f2f75c0ffebfcf556bc802276b1b675279c124d`.
-- Adapter package: `dsh-wecom-cli@0.1.0`.
-- Entry ID: `dsh-wecom-cli-skill-provider`.
-- Registry PR: https://github.com/AI-Scarlett/dsh-safe-plugin-manager/pull/34
-- Registry merge Commit: `d0db8f081dc46a3a16a504e00debcba007888da7`.
-- Tool card decision: not applicable; this package registers no model Tool or custom Client card.
+- Version under test: `dsh-wecom-cli@0.1.1`.
+- Host fit: adapter-required, now implemented as Host Tool + Skill provider.
+- Risk: R2 / high.
 - Real Profile: unchanged.
-- External enterprise WeCom account: unverified.
+- Enterprise WeCom account and external CLI: unverified.
 
-## E2 automated evidence
+## E2
 
-- Source verifier: PASS; 14 Skills and 96 Skill resources.
-- Node tests: PASS; 3/3.
-- npm pack dry-run: PASS; 103 files, 305,883 packed bytes, 1,055,162 unpacked bytes.
-- Lifecycle scripts: none.
-- General plugin audit with current evidence: 90/100, no hard blocker.
+- Source verifier: PASS; two unique Bundle rows, 14 Skill entrypoints, zero legacy references/assets/scripts.
+- Node tests: PASS; structural contract plus Host bridge security/fault cases.
+- Fixed argv: hostile shell text remains one JSON argv element.
+- Unknown/write operations, secrets, paths, URLs, SQL and effectful formulas: rejected before spawn.
+- Managed process: official DSH subprocess spec, no env forwarding, no spill files, bounded stdout/stderr.
+- Output: internal IDs, local paths, secrets and URLs redacted; nonzero stderr withheld.
+- npm pack dry-run: PASS; 23 files, no lifecycle scripts.
 
-## E3 disposable evidence
+## E3 disposable
 
-- Workspace-local disposable DSH homes were used; no test resolved to real `~/.dsh`.
-- Official DSH CLI `0.1.0-rc.7` installed the adapter into disposable `web` and `headless` Profiles.
-- Both Profiles produced composed configs containing `dsh-wecom-cli-skill-provider` and provider `dsh-wecom-cli`.
-- Headless startup help exited 0.
-- Official `@deepseek-ai/dsh-skill-filesystem` discovery loaded all 14 Skills with zero warnings.
-- Cleanup/rollback: disposable directories can be deleted; no real Profile or external account was changed.
+- Root: workspace-local `.e3-v011` only.
+- Official DSH rc.7 CLI installed the adapter into disposable `web` and `headless` Profiles.
+- Both dump-config outputs include `dsh-wecom-cli-host` and `dsh-wecom-cli-skill-provider`.
+- Web/headless help cold boots exit 0 while `wecom-cli` is absent.
+- Official rc.7 Skill provider discovers and fully loads all 14 Skills with zero warnings.
 
-## Registry and marketplace evidence
+## Security scope
 
-- Registry `npm run check`: PASS, 69/69 tests.
-- Registry source verification: `SOURCE_OK dsh-wecom-cli 7f2f75c...`.
-- PR checks: validate, CodeQL, Actions and JavaScript/TypeScript analysis all PASS.
-- Merged remote `registry/catalog.json`: exact ID/version/Commit/status read back successfully.
-- GitHub Pages deployment origin: exact approved entry read back successfully.
-- Current DSH GUI market API at `127.0.0.1:3080`: GitHub catalog source, `listed: true`, `allowedActions: ["install"]`.
-- Separate `https://dsh.store/registry/catalog.json` nginx mirror was still serving its earlier snapshot at the final check; this does not affect the current GUI, which reads the authoritative raw GitHub catalog, but the mirror remains a pending propagation surface.
+v0.1.1 is deliberately read-only. Sends, creates, updates, deletes, cancels, overwrites, imports, uploads, downloads, Webhooks, SQL and effectful formulas remain unavailable. They must not be restored without operation-specific schemas, DSH one-shot approvals, bounded artifacts, stale-target checks and separate E5 evidence.
 
-## Remaining independent surfaces
+## Remaining gates
 
-- Real Profile installation was not requested and remains unchanged.
-- Enterprise account authorization and real business reads/writes remain unverified E5 external behavior.
-- Optional final follow-up: recheck the separately hosted dsh.store nginx mirror after its next synchronization.
+1. Commit and publish the exact v0.1.1 source.
+2. Recreate the catalog candidate from the public 40-character Commit.
+3. Run Registry validation/source verification and update the blocked entry.
+4. Only restore `approved` if current audits and public readback support the reduced read-only contract.

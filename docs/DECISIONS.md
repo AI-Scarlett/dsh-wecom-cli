@@ -2,34 +2,33 @@
 
 ## Host contract
 
-- Requested outcome: expose the official WeCom CLI Agent Skills in DSH and prepare a DSH-Store listing.
-- Target host: DeepSeek Harness 0.1.0-rc.7 or newer.
-- Upstream host: standalone Rust/npm CLI plus generic Agent Skills.
-- Extension seam: `@deepseek-ai/dsh-skill-filesystem` custom Skill directory provider.
-- Host-fit conclusion: `adapter-required`, implemented here as a standard Bundle.
-- Risk class: R2 because capability crosses external process, network, enterprise account, credentials, files, and remote business state boundaries.
-- Prohibited surfaces: DSH core edits, official inventory replacement, Loader/Fiber mutation, automatic CLI installation, automatic authorization, credential reads, arbitrary shell fallback, real Profile mutation without a separate plan.
+- Host fit: `adapter-required`.
+- Target: DSH 0.1.0-rc.7 or newer.
+- Risk: R2 because an external process can reach enterprise services and CLI-owned credentials.
+- v0.1.1 outcome: retain 14 discoverable domains but expose only bounded read operations through one Host Tool.
 
-## Architecture comparison
+## Architecture decision
 
 | Option | Benefit | Cost | Decision |
 | --- | --- | --- | --- |
-| Add Bundle fields to `@wecom/cli` root | One repository | Git root is not a self-contained published binary package; root prepare script adds install-time behavior | Rejected |
-| Host plugin wrapping every CLI method | Strong typed tools and cards | Dynamic discovery surface is large; duplicates upstream command model and greatly expands maintenance | Deferred |
-| Skill adapter | Reuses upstream Skills, no Browser/Host API, no install scripts | External CLI remains separately installed and compatible | Chosen |
+| Keep upstream command instructions | Maximum feature parity | Shell, secret, file, formula and write boundaries cannot be centrally enforced | Rejected |
+| Generic raw argv bridge | Small implementation | Equivalent to arbitrary command execution | Rejected |
+| Operation-specific read-only Host bridge | Fixed argv, central budgets and redaction, testable fail-closed behavior | Writes and file operations temporarily unavailable | Chosen for v0.1.1 |
+| Full read/write transaction bridge | Restores all capabilities | Requires per-operation schemas, preview/revision checks, approvals and E5 evidence | Future version only |
 
 ## Permission matrix
 
-| Action/data | User outcome | Owner | Allowed caller | Redaction | Limits | Failure | Test |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Read CLI version/auth status | Determine readiness | external CLI | shared Skill | no token/secret output | fixed argv, short output | stop | static Skill contract |
-| Call WeCom business methods | Complete explicit enterprise task | external CLI | matching business Skill | hide internal IDs/credentials | schema and Skill bounds | stop; no bypass | command-boundary scan |
-| Read/write selected local files | upload/download/import/export | external CLI | file-capable Skills | do not echo private contents/path unnecessarily | explicit path/type/size | stop on missing bounds | permission review |
-| Access WeCom services | perform business operation | external CLI | matching Skill | no credentials in args/output | specified services only | surface non-sensitive error | external E5 pending |
+| Action | Owner | Allowed | Bound | Failure |
+| --- | --- | --- | --- | --- |
+| Version/auth status | Host bridge | yes | 15s / bounded output | generic safe error |
+| Allowlisted business read | Host bridge | yes | 3 pages / 32 KiB input / 256 KiB output | stop and redact |
+| Secret, URL, path, SQL, effectful formula | none | no | rejected before spawn | fail closed |
+| Remote write or destructive operation | none in v0.1.1 | no | operation absent | fail closed |
+| Upload/download/import/export | none in v0.1.1 | no | operation absent | fail closed |
 
 ## Evidence gates
 
-- E2: package, patch, Skill count, safety scans, audits and pack contents pass.
-- E3: isolated DSH install, dump-config, cold start, Skill discovery and cleanup pass.
-- E5 external account: separately authorized WeCom account test; not inferred from E3.
-- DSH-Store listing: immutable public source, Registry CI, merged catalog, and public page readback.
+- E2: structure, exact argv, no-spawn rejection, budgets, cancellation/error and redaction tests.
+- E3: disposable install, two patch rows, cold boot without CLI, tool registration and 14-Skill discovery.
+- E5: separately authorized real-account reads; not inferred from E3.
+- Approved Store update: public immutable v0.1.1 source, Registry verification, merge and GUI readback.

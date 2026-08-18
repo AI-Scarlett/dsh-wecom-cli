@@ -1,22 +1,23 @@
 # Installation
 
-## 1. Install the external runtime separately
+## External runtime
 
-Install and authorize the official WeCom CLI outside the DSH plugin transaction. These operations may modify global npm state and local encrypted credentials, so the adapter never performs them automatically.
+在 DSH 插件事务之外，用户可按企业微信官方文档安装 `@wecom/cli >=1.1.0` 并完成授权。不要把 Bot Secret、Token、凭据文件或 keyring 内容粘贴到 DSH 对话。
 
-```bash
-npm install -g @wecom/cli
-wecom-cli --version
-wecom-cli auth init
-wecom-cli auth show --status
-```
+适配器不会自动安装、升级或授权外部 CLI。
 
-Never paste Bot Secret, Token, encrypted credential files, or keyring contents into DSH chat.
+## DSH adapter
 
-## 2. Install the adapter
+只使用 DSH Store 中固定到 40 位 Commit 的版本。v0.1.0 已临时阻止安装；v0.1.1 在完成固定源码和 disposable E3 前不得恢复为 approved。
 
-Use DSH-Store after the adapter has a public immutable Commit and an approved catalog entry. Direct official-CLI installation into a real Profile is a separate R3 operation requiring a fresh plan, backup, exact confirmation, dump-config, health checks, and rollback.
+## Acceptance
 
-## 3. Verify
+一次有效的 disposable 安装必须：
 
-A valid installation must show the `dsh-wecom-cli-skill-provider` row and discover all 14 packaged Skills, including the shared prerequisite Skill. External account capability remains unverified until a separately authorized real account test succeeds.
+1. 在 dump-config 中出现 `dsh-wecom-cli-host` 和 `dsh-wecom-cli-skill-provider`；
+2. 冷启动时即使缺少 `wecom-cli` 也不崩溃；
+3. 发现全部 14 个 Skill；
+4. 注册 `wecom_cli_read`；
+5. 未知和写入 operation 在 process spawn 前被拒绝。
+
+真实 Profile 和企业账号验收是独立操作，未获单独授权时保持 unchanged。

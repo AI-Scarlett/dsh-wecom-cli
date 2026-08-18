@@ -8,6 +8,6 @@
 - License: MIT
 - Copyright: Copyright (c) 2026 WeCom
 
-This adapter redistributes the upstream `skills/` text, reference assets, and the `build_docx.py` helper under the MIT License. The adapter changes `wecomcli-shared/SKILL.md` so DSH never silently installs or upgrades the external CLI and never automatically starts credential authorization. The remaining copied files preserve the inspected upstream baseline except for packaging-normalized final newlines.
+v0.1.0 redistributed upstream Skill text, references, templates and one Python helper under the MIT License. The v0.1.1 hardening release removes those executable reference materials and rewrites the 14 Skill entrypoints as minimal instructions for a plugin-owned, read-only DSH Host Tool.
 
-The WeCom CLI executable and platform binaries are not included. Users obtain them separately from the official `@wecom/cli` distribution.
+The WeCom CLI executable and platform binaries are not included. Users obtain and authorize them separately from the official distribution.

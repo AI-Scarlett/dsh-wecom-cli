@@ -1,4 +1,7 @@
 - insert:
+    - id: dsh-wecom-cli-host
+      name: dsh-wecom-cli
+- insert:
     - id: dsh-wecom-cli-skill-provider
       name: '@deepseek-ai/dsh-skill-filesystem'
       config:

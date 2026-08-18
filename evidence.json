@@ -1,11 +1,11 @@
 {
   "dumpConfig": {
     "verified": true,
-    "evidence": "2026-08-18: DSH_HOME=/Users/zhouxiaoming/Documents/DSH插件商城/.e3-dsh-home; official dsh rc.7 CLI installed link:dsh-wecom-cli into disposable profile wecom-e3; --dump-config exited 0 and contained dsh-wecom-cli-skill-provider/providerName dsh-wecom-cli."
+    "evidence": "2026-08-18: official DSH rc.7 CLI installed local v0.1.1 into disposable web and headless Profiles under workspace .e3-v011; both --dump-config outputs contained dsh-wecom-cli-host and dsh-wecom-cli-skill-provider."
   },
   "isolatedRuntime": {
     "verified": true,
-    "evidence": "2026-08-18: disposable profile cold start remained alive without stderr until the 60s harness timeout; official @deepseek-ai/dsh-skill-filesystem rc.7 FileSystemSkillProvider discovered and loaded all 14 Skills with zero warnings."
+    "evidence": "2026-08-18: disposable web/headless app help cold boots exited 0 without wecom-cli present; official rc.7 FileSystemSkillProvider discovered and fully loaded all 14 rewritten Skills with zero warnings. Host bridge unit tests prove fixed argv, official subprocess spec, no-spawn rejection, budgets, redaction, and withheld stderr."
   },
   "realProfile": {
     "verified": false,
@@ -13,6 +13,6 @@
   },
   "externalReadback": {
     "verified": false,
-    "evidence": "No enterprise WeCom account, credential, network, or business-write acceptance was performed."
+    "evidence": "No enterprise WeCom account, CLI binary, credential, network, or business operation acceptance was performed."
   }
 }
