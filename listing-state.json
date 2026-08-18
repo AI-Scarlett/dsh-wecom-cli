@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "intent": "approved-listing",
-  "phase": "pr-pending",
+  "phase": "listed",
   "plugin": {
     "root": ".",
     "repositoryUrl": "https://github.com/AI-Scarlett/dsh-wecom-cli",
@@ -19,7 +19,7 @@
     "entryId": "dsh-wecom-cli",
     "status": "approved",
     "pullRequest": "https://github.com/AI-Scarlett/dsh-safe-plugin-manager/pull/34",
-    "contributionCommit": "3b68d38606a5546f74909ccf0298256652cfbb1d"
+    "mergedCommit": "d0db8f081dc46a3a16a504e00debcba007888da7"
   },
   "gates": {
     "hostFit": "adapter-compatible",
@@ -28,16 +28,16 @@
     "disposableRuntime": "passed-web-headless",
     "immutableSource": "remote-verified",
     "catalogCandidate": "passed",
-    "registryCi": "pending-codeql; validate-passed",
-    "mergedCatalog": "unverified",
-    "publicMarketplace": "unverified",
+    "registryCi": "passed",
+    "mergedCatalog": "passed",
+    "publicMarketplace": "passed-dsh-gui-and-github-pages; dsh.store-nginx-mirror-propagation-pending",
     "realProfile": "unchanged"
   },
   "evidence": ["evidence.json", "docs/VERIFICATION.md"],
-  "nextGate": "Wait for PR 34 CI, merge, then read back remote catalog and dsh.store",
+  "nextGate": "Optional: confirm the separate dsh.store nginx mirror has propagated the merged catalog",
   "authorizations": {
     "repositoryRelease": "authorized-personal-github",
-    "registryContribution": "single-use-confirmation-consumed",
+    "registryContribution": "single-use-confirmations-consumed",
     "realProfileMutation": false
   }
 }
