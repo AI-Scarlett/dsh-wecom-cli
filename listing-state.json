@@ -9,7 +9,7 @@
     "installPath": null,
     "packageName": "dsh-wecom-cli",
     "version": "0.1.0",
-    "commit": "da265360b12daffea9894da49550d4684e58d685",
+    "commit": "7f2f75c0ffebfcf556bc802276b1b675279c124d",
     "entryIds": ["dsh-wecom-cli-skill-provider"]
   },
   "registry": {
