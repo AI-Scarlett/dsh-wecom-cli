@@ -1,9 +1,9 @@
 ---
 name: wecomcli-media
-description: 企业微信媒体文件安全占位技能。v0.1.2 暂停全部上传和下载，不接受本地路径或 media_id。
+description: 企业微信媒体文件安全占位技能。v0.2.0 暂停全部上传和下载，不接受本地路径或 media_id。
 ---
 
-# wecomcli-media（v0.1.2 安全只读模式）
+# wecomcli-media（v0.2.0 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 

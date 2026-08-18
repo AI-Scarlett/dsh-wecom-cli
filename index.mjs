@@ -1,14 +1,17 @@
 import { defineTool } from '@deepseek-ai/dsh-tools'
 import { createWecomReadBridge, READ_OPERATIONS } from './lib/bridge.mjs'
+import { createWecomOnboarding } from './lib/onboarding.mjs'
+import { registerSetupRoute } from './lib/panel.mjs'
 
 export const name = 'dsh-wecom-cli-host'
 export const inject = ['tools', 'subprocess']
 
 export function apply(ctx) {
   const bridge = createWecomReadBridge({ subprocess: ctx.subprocess })
+  const onboarding = createWecomOnboarding({ subprocess: ctx.subprocess })
   ctx.tools.register(defineTool({
     name: 'wecom_cli_read',
-    description: 'Run one bounded, read-only, allowlisted official WeCom CLI operation. This is the only supported execution path for dsh-wecom-cli v0.1.3. It rejects writes, uploads, downloads, arbitrary commands, secrets, local paths, effectful formulas, broad SQL, and shell syntax.',
+    description: 'Run one bounded, read-only, allowlisted official WeCom CLI operation. This is the supported business-operation path for dsh-wecom-cli v0.2.0. Account onboarding is handled separately in the settings page. The Tool rejects writes, uploads, downloads, arbitrary commands, secrets, local paths, effectful formulas, broad SQL, and shell syntax.',
     parameters: {
       operation: {
         type: 'string',
@@ -42,6 +45,10 @@ export function apply(ctx) {
     },
     execute: (args, exec) => bridge.execute(args, { signal: exec.signal }),
   }))
+  ctx.inject(['webServer'], webCtx => {
+    const disposeRoute = registerSetupRoute(webCtx.webServer, onboarding)
+    if (typeof webCtx.effect === 'function') webCtx.effect(() => async () => { if (typeof disposeRoute === 'function') disposeRoute(); await onboarding.dispose() }, 'dsh-wecom-cli: setup route')
+  })
 }
 
 export { createWecomReadBridge, READ_OPERATIONS }
