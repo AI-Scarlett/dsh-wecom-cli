@@ -2,13 +2,15 @@
 
 ## Trust boundaries
 
-本包注册 DSH Host Tool `wecom_cli_read`、挂载 14 个 Skill，并提供本机设置页 onboarding。外部官方 `wecom-cli` 仍可能访问企业账号、加密凭据和企业微信网络服务，但 v0.2.0 的业务操作只允许有限只读调用。
+本包注册 DSH Host Tool `wecom_cli_read`、挂载 14 个 Skill，并提供本机设置页 onboarding。外部官方 `wecom-cli` 仍可能访问企业账号、加密凭据和企业微信网络服务，但 v0.3.0 的业务操作只允许有限只读调用。
 
 ## Enforced controls
 
 - 通过 `ctx.subprocess` 执行；argv 数组从冻结 operation registry 生成。
 - 不接受命令字符串、原始 argv、可执行路径、工作目录、环境变量或任意 flags。
 - 不使用 Node `child_process`、Shell、Python、curl、wget 或通用 HTTP fallback。
+- CLI 安装只接受精确确认语，固定执行受信任 npm 与固定包版本；浏览器不能提供包名、版本、flags、路径或环境变量。
+- 安装输出有界且不返回浏览器；状态只暴露阶段和通用错误。安装后同时检查 Host PATH 与 npm 全局前缀下的可执行文件。
 - Secret-like 字段、本地路径、URL、SQL 和 `OPENLINK/ADDRECORD/MODIFYRECORDS` 在 spawn 前拒绝。
 - 输入 32 KiB、输出 256 KiB、stderr 16 KiB、字符串 4096 字符、分页 3 页、超时 15 秒。
 - subprocess spill 禁用；不在磁盘保存完整企业响应。
@@ -18,7 +20,7 @@
 
 ## Credentials
 
-插件不调用 DSH credential store，不读取 `credentials.enc`，不接收密码、Bot Secret、Webhook key、Token 或 Cookie。账号授权完全由用户和官方 CLI 在插件之外管理。
+插件不调用 DSH credential store，不读取 `credentials.enc`，不接收密码、Bot Secret、Webhook key、Token 或 Cookie。账号授权由用户扫码确认并由官方 CLI 管理。
 
 ## Remaining limitations
 

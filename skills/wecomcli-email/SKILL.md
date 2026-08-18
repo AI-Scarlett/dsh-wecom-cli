@@ -1,9 +1,9 @@
 ---
 name: wecomcli-email
-description: 只读搜索和获取企业微信邮件。v0.2.0 暂停发送、回复、转发、附件下载和能力链接展示。
+description: 只读搜索和获取企业微信邮件。v0.3.0 暂停发送、回复、转发、附件下载和能力链接展示。
 ---
 
-# wecomcli-email（v0.2.0 安全只读模式）
+# wecomcli-email（v0.3.0 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 

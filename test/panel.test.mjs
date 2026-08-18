@@ -28,6 +28,21 @@ test('authorization rejects missing intent before account mutation', async () =>
   assert.equal(called, false)
 })
 
+test('CLI installation rejects missing intent before npm mutation', async () => {
+  let called = false; const res = response()
+  await handleSetup(request({ action: 'install', confirmation: 'INSTALL WECOM CLI' }), res, { startInstall: async () => { called = true } })
+  assert.equal(res.result().status, 409)
+  assert.equal(res.result().body.error.code, 'INTENT_REQUIRED')
+  assert.equal(called, false)
+})
+
+test('CLI installation forwards exact confirmation only with installation intent', async () => {
+  let confirmation = null; const res = response()
+  await handleSetup(request({ action: 'install', confirmation: 'INSTALL WECOM CLI' }, { 'x-dsh-wecom-intent': 'install' }), res, { startInstall: async value => { confirmation = value; return { install: { state: 'installing' } } } })
+  assert.equal(res.result().status, 200)
+  assert.equal(confirmation, 'INSTALL WECOM CLI')
+})
+
 test('setup rejects cross-origin requests', async () => {
   const res = response()
   await handleSetup(request({ action: 'status' }, { origin: 'https://attacker.example' }), res, { status: async () => ({}) })

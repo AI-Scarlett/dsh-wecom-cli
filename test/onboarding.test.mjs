@@ -25,8 +25,40 @@ test('status detects installed version and authorization without returning crede
     ['auth show --status', { code: 0, stdout: 'authorized' }],
   ]))
   const value = await createWecomOnboarding({ subprocess: runner }).status()
-  assert.deepEqual(value, { installed: true, version: '1.1.0', authorized: true, installCommand: __test.INSTALL_COMMAND, auth: null })
+  assert.deepEqual(value, { installed: true, version: '1.1.0', authorized: true, installCommand: __test.INSTALL_COMMAND, install: null, auth: null })
   assert.equal(JSON.stringify(value).includes('secret'), false)
+})
+
+test('installation requires exact confirmation and starts only the pinned npm argv', async () => {
+  const calls = []
+  let finish
+  const runner = {
+    calls,
+    async resolveExecutable(name) {
+      if (name === 'npm') return '/approved/npm'
+      throw new Error('missing')
+    },
+    spawn(spec) {
+      calls.push(spec)
+      if (spec.argv[1] === 'prefix') return {
+        done: Promise.resolve({ exitCode: 1, signal: null }), waitForExit: async () => true,
+        collected: { stdout: { readFrom: () => ({ text: '', lossy: false }) }, stderr: { readFrom: () => ({ text: '', lossy: false }) } },
+      }
+      return {
+        done: new Promise(resolve => { finish = resolve }), waitForExit: async () => true,
+        collected: { stdout: { readFrom: () => ({ text: '', lossy: false }) }, stderr: { readFrom: () => ({ text: '', lossy: false }) } },
+      }
+    },
+  }
+  const onboarding = createWecomOnboarding({ subprocess: runner })
+  await assert.rejects(() => onboarding.startInstall('yes'), error => error.code === 'CONFIRMATION_REQUIRED')
+  const value = await onboarding.startInstall('INSTALL WECOM CLI')
+  const installCall = calls.find(call => call.argv[1] === 'install')
+  assert.deepEqual(installCall.argv, ['/approved/npm', ...__test.INSTALL_ARGV])
+  assert.equal(installCall.stdio.stdin, 'ignore')
+  assert.equal(value.install.state, 'installing')
+  finish({ exitCode: 1, signal: null })
+  await onboarding.dispose()
 })
 
 test('authorization requires exact confirmation and uses fixed noninteractive QR argv', async () => {

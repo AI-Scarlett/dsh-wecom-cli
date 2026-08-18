@@ -23,7 +23,7 @@ export async function verifyAdapter(root) {
   const patchRel = manifest?.dsh?.bundle?.patch
 
   check(manifest.name === 'dsh-wecom-cli', 'unexpected package name', errors)
-  check(manifest.version === '0.2.0', 'unexpected package version', errors)
+  check(manifest.version === '0.3.0', 'unexpected package version', errors)
   check(manifest.main === './index.mjs', 'Host entry must be ./index.mjs', errors)
   check(manifest.license === 'MIT', 'license must be MIT', errors)
   check(patchRel === './cordis.patch.yml', 'dsh.bundle.patch must be ./cordis.patch.yml', errors)
@@ -50,9 +50,13 @@ export async function verifyAdapter(root) {
   const client = await readFile(join(root, 'client.js'), 'utf8')
   check(onboarding.includes("'auth', 'init', '--noninteractive', '--no-browser', '--output-qrcode', 'qr.png'"), 'authorization must use fixed official CLI argv', errors)
   check(onboarding.includes("confirmation !== 'AUTHORIZE WECOM'"), 'authorization must require an exact confirmation', errors)
+  check(onboarding.includes("const INSTALL_CONFIRMATION = 'INSTALL WECOM CLI'"), 'installation must require an exact confirmation', errors)
+  check(onboarding.includes("const INSTALL_ARGV = ['install', '--global', '@wecom/cli@1.1.0', '--no-audit', '--no-fund']"), 'installation must use one pinned fixed npm argv', errors)
+  check(onboarding.includes('argv: [npm, ...INSTALL_ARGV]'), 'installation must use the official subprocess service with fixed argv', errors)
   check(!onboarding.includes('node:child_process'), 'onboarding must use the official DSH subprocess service', errors)
   check(client.includes("id: 'dsh-wecom-cli'"), 'Client must register a settings section', errors)
   check(client.includes('AUTHORIZE WECOM'), 'Client must expose the exact authorization confirmation', errors)
+  check(client.includes('INSTALL WECOM CLI'), 'Client must expose the exact installation confirmation', errors)
   check(bridge.includes('subprocess.spawn({'), 'bridge must use the official DSH subprocess service', errors)
   check(bridge.includes('argv: [executable, ...argv]'), 'bridge must spawn with a fixed argv array', errors)
   check(!bridge.includes('node:child_process'), 'bridge must not import Node child_process directly', errors)

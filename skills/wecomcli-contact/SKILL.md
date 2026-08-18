@@ -1,9 +1,9 @@
 ---
 name: wecomcli-contact
-description: 通过受控 Host Bridge 只读搜索企业微信联系人。v0.2.0 不公开内部 userid，也不允许直接执行 CLI。
+description: 通过受控 Host Bridge 只读搜索企业微信联系人。v0.3.0 不公开内部 userid，也不允许直接执行 CLI。
 ---
 
-# wecomcli-contact（v0.2.0 安全只读模式）
+# wecomcli-contact（v0.3.0 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 

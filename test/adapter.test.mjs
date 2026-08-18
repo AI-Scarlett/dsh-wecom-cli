@@ -15,7 +15,7 @@ test('adapter verifies the Host bridge and all 14 safe Skill entrypoints', async
 
 test('manifest exposes a Host entry and has no install-time lifecycle execution', async () => {
   const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
-  assert.equal(manifest.version, '0.2.0')
+  assert.equal(manifest.version, '0.3.0')
   assert.equal(manifest.main, './index.mjs')
   assert.ok(manifest.dependencies['@deepseek-ai/dsh-tools'])
   assert.equal(manifest.peerDependencies?.['@deepseek-ai/dsh-tools'], undefined)

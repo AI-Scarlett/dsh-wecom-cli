@@ -2,13 +2,13 @@
 
 ## External runtime
 
-在 DSH 插件事务之外，用户可按企业微信官方文档安装 `@wecom/cli >=1.1.0` 并完成授权。不要把 Bot Secret、Token、凭据文件或 keyring 内容粘贴到 DSH 对话。
+在 DSH 设置页输入精确确认语后，插件可通过受信任 npm 的固定 argv 安装 `@wecom/cli@1.1.0`，并启动官方扫码授权。不要把 Bot Secret、Token、凭据文件或 keyring 内容粘贴到 DSH 对话。
 
-适配器不会自动安装或升级外部 CLI。v0.2.0 设置页可在用户输入精确确认语后启动官方扫码授权；不会接收或显示 Secret。
+适配器不会静默安装或升级外部 CLI。v0.3.0 对安装和授权分别要求 `INSTALL WECOM CLI` 与 `AUTHORIZE WECOM`；不会接收或显示 Secret。若 npm 权限不足，页面保留相同固定命令作为手动恢复入口。
 
 ## DSH adapter
 
-只使用 DSH Store 中固定到 40 位 Commit 的版本。v0.2.0 增加设置页 onboarding；仍须完成新的固定源码和 disposable E3 后才能更新商城来源。
+只使用 DSH Store 中固定到 40 位 Commit 的版本。v0.3.0 增加页面内 CLI 安装和 npm 全局目录检测；仍须完成新的固定源码和 disposable E3 后才能更新商城来源。
 
 ## Acceptance
 

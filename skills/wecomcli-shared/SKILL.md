@@ -1,6 +1,6 @@
 ---
 name: wecomcli-shared
-description: dsh-wecom-cli v0.2.0 的公共安全边界。所有企业微信业务技能必须通过 Host Tool wecom_cli_read 执行有限、只读、可脱敏的官方 CLI 查询；禁止直接运行 Shell、Python、curl、HTTP、wecom-cli 命令或自动安装和授权。
+description: dsh-wecom-cli v0.3.0 的公共安全边界。所有企业微信业务技能必须通过 Host Tool wecom_cli_read 执行有限、只读、可脱敏的官方 CLI 查询；禁止直接运行 Shell、Python、curl、HTTP、wecom-cli 命令或自动安装和授权。
 ---
 
 # WeCom CLI 公共安全边界
@@ -17,7 +17,7 @@ Host Bridge 使用固定 argv 和 `shell: false`，仅开放枚举中的只读�
 2. 调用 `wecom_cli_read`，`operation: "auth_status"`。
 3. 任一步失败、版本不满足或未授权时停止。不得安装软件、升级 CLI、启动授权、生成二维码或索取 Secret。
 
-## v0.2.0 禁止能力
+## v0.3.0 禁止能力
 
 - 发送、创建、更新、删除、取消、覆盖、追加、导入、上传、下载、重命名和 Webhook 写入。
 - SQL、effectful formula（OPENLINK、ADDRECORD、MODIFYRECORDS）、本地路径、URL、密码、Token、Bot Secret 和能力链接。
