@@ -1,9 +1,9 @@
 ---
 name: wecomcli-calendar
-description: 只读查询企业微信日程、忙闲和会议室。v0.1.2 暂停创建、更新、取消和预订。
+description: 只读查询企业微信日程、忙闲和会议室。v0.2.0 暂停创建、更新、取消和预订。
 ---
 
-# wecomcli-calendar（v0.1.2 安全只读模式）
+# wecomcli-calendar（v0.2.0 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 

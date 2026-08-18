@@ -1,9 +1,9 @@
 ---
 name: wecomcli-disk
-description: 只读列出、搜索和读取企业微信微盘文件元信息。v0.1.2 暂停上传、下载、重命名和新建文件夹。
+description: 只读列出、搜索和读取企业微信微盘文件元信息。v0.2.0 暂停上传、下载、重命名和新建文件夹。
 ---
 
-# wecomcli-disk（v0.1.2 安全只读模式）
+# wecomcli-disk（v0.2.0 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 

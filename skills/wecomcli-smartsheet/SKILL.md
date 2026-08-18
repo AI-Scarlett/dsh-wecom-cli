@@ -1,9 +1,9 @@
 ---
 name: wecomcli-smartsheet
-description: 只读查询企业微信智能表格的子表、记录、字段、视图和图表。v0.1.2 禁止 SQL、Webhook、公式副作用和全部结构或数据写入。
+description: 只读查询企业微信智能表格的子表、记录、字段、视图和图表。v0.2.0 禁止 SQL、Webhook、公式副作用和全部结构或数据写入。
 ---
 
-# wecomcli-smartsheet（v0.1.2 安全只读模式）
+# wecomcli-smartsheet（v0.2.0 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 
