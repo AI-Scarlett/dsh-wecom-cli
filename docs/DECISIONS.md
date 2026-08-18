@@ -5,7 +5,7 @@
 - Host fit: `adapter-required`.
 - Target: DSH 0.1.0-rc.7 or newer.
 - Risk: R2 because an external process can reach enterprise services and CLI-owned credentials.
-- v0.1.2 outcome: retain 14 discoverable domains but expose only bounded read operations through one Host Tool.
+- v0.1.3 outcome: retain 14 discoverable domains and the bounded read-only Host Tool while repairing Git-install cold-start compatibility.
 
 ## Architecture decision
 

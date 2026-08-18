@@ -15,11 +15,23 @@ test('adapter verifies the Host bridge and all 14 safe Skill entrypoints', async
 
 test('manifest exposes a Host entry and has no install-time lifecycle execution', async () => {
   const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
-  assert.equal(manifest.version, '0.1.2')
+  assert.equal(manifest.version, '0.1.3')
   assert.equal(manifest.main, './index.mjs')
-  assert.ok(manifest.peerDependencies['@deepseek-ai/dsh-tools'])
-  assert.ok(manifest.peerDependencies['@deepseek-ai/dsh-skill-filesystem'])
+  assert.ok(manifest.dependencies['@deepseek-ai/dsh-tools'])
+  assert.equal(manifest.peerDependencies?.['@deepseek-ai/dsh-tools'], undefined)
   for (const name of ['preinstall', 'install', 'postinstall', 'prepare']) assert.equal(manifest.scripts?.[name], undefined)
+})
+
+test('Bundle resolves Skills from the installed package instead of the composed Profile', async () => {
+  const patch = await readFile(new URL('../cordis.patch.yml', import.meta.url), 'utf8')
+  assert.match(patch, /createRequire\(baseUrl\)\.resolve\('dsh-wecom-cli\/package\.json'\)/)
+  assert.doesNotMatch(patch, /new URL\('skills\/', baseUrl\)/)
+})
+
+test('Host Tool declares an rc.7-compatible explicit JSON output schema', async () => {
+  const source = await readFile(new URL('../index.mjs', import.meta.url), 'utf8')
+  assert.match(source, /data: \{ type: 'json', required: true \}/)
+  assert.doesNotMatch(source, /data:\s*\{\s*\}/)
 })
 
 test('Skills require the Host tool and contain no direct command instructions', async () => {

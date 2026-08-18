@@ -8,5 +8,5 @@
         providerName: dsh-wecom-cli
         includeDefaultRoots: false
         customSkillDirs:
-          - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('skills/', baseUrl))"
+          - !!js "process.getBuiltinModule('node:path').join(process.getBuiltinModule('node:path').dirname(process.getBuiltinModule('node:module').createRequire(baseUrl).resolve('dsh-wecom-cli/package.json')), 'skills')"
         watch: false

@@ -1,6 +1,6 @@
 # Verification Status
 
-- Version under test: `dsh-wecom-cli@0.1.2`.
+- Version under test: `dsh-wecom-cli@0.1.3`.
 - Host fit: adapter-required, now implemented as Host Tool + Skill provider.
 - Risk: R2 / high.
 - Real Profile: unchanged.
@@ -18,19 +18,18 @@
 
 ## E3 disposable
 
-- Root: workspace-local `.e3-v011` only.
-- Official DSH rc.7 CLI installed the adapter into disposable `web` and `headless` Profiles.
-- Both dump-config outputs include `dsh-wecom-cli-host` and `dsh-wecom-cli-skill-provider`.
-- Web/headless help cold boots exit 0 while `wecom-cli` is absent.
-- Official rc.7 Skill provider discovers and fully loads all 14 Skills with zero warnings.
+- Root: disposable `/tmp/dsh-wecom-e3.*` only.
+- Official DSH rc.7 CLI installed the adapter into a disposable `web` Profile and composed both Bundle entries.
+- A real cold boot on isolated port 3081 stayed running while external `wecom-cli` was absent; `/` and the official `dsh-session-log-export` Client module both returned HTTP 200.
+- Official rc.7 Skill provider discovered and fully loaded all 14 Skills with zero warnings.
 
 ## Security scope
 
-v0.1.2 is deliberately read-only. Sends, creates, updates, deletes, cancels, overwrites, imports, uploads, downloads, Webhooks, SQL and effectful formulas remain unavailable. They must not be restored without operation-specific schemas, DSH one-shot approvals, bounded artifacts, stale-target checks and separate E5 evidence.
+v0.1.3 remains deliberately read-only. Sends, creates, updates, deletes, cancels, overwrites, imports, uploads, downloads, Webhooks, SQL and effectful formulas remain unavailable. They must not be restored without operation-specific schemas, DSH one-shot approvals, bounded artifacts, stale-target checks and separate E5 evidence.
 
 ## Remaining gates
 
-1. Commit and publish the exact v0.1.2 source.
+1. Commit and publish the exact v0.1.3 source.
 2. Recreate the catalog candidate from the public 40-character Commit.
 3. Run Registry validation/source verification and update the blocked entry.
 4. Only restore `approved` if current audits and public readback support the reduced read-only contract.

@@ -23,12 +23,12 @@ export async function verifyAdapter(root) {
   const patchRel = manifest?.dsh?.bundle?.patch
 
   check(manifest.name === 'dsh-wecom-cli', 'unexpected package name', errors)
-  check(manifest.version === '0.1.2', 'unexpected package version', errors)
+  check(manifest.version === '0.1.3', 'unexpected package version', errors)
   check(manifest.main === './index.mjs', 'Host entry must be ./index.mjs', errors)
   check(manifest.license === 'MIT', 'license must be MIT', errors)
   check(patchRel === './cordis.patch.yml', 'dsh.bundle.patch must be ./cordis.patch.yml', errors)
-  check(Boolean(manifest.peerDependencies?.['@deepseek-ai/dsh-tools']), 'missing dsh-tools peer dependency', errors)
-  check(Boolean(manifest.peerDependencies?.['@deepseek-ai/dsh-skill-filesystem']), 'missing dsh-skill-filesystem peer dependency', errors)
+  check(Boolean(manifest.dependencies?.['@deepseek-ai/dsh-tools']), 'missing runtime dsh-tools dependency', errors)
+  check(!manifest.peerDependencies?.['@deepseek-ai/dsh-tools'], 'dsh-tools must not be a missing peer dependency', errors)
   for (const name of lifecycleNames) check(!manifest.scripts?.[name], 'lifecycle script ' + name + ' must be absent', errors)
 
   const patch = await readFile(join(root, 'cordis.patch.yml'), 'utf8')
@@ -36,13 +36,15 @@ export async function verifyAdapter(root) {
   check((patch.match(/\bid:\s*dsh-wecom-cli-skill-provider\b/g) || []).length === 1, 'patch must insert exactly one Skill provider entry', errors)
   check(patch.includes('name: dsh-wecom-cli'), 'patch must load the package Host entry', errors)
   check(patch.includes("name: '@deepseek-ai/dsh-skill-filesystem'"), 'patch must use the official Skill filesystem provider', errors)
-  check(patch.includes("new URL('skills/', baseUrl)"), 'patch must resolve the package-owned skills directory', errors)
+  check(patch.includes("createRequire(baseUrl).resolve('dsh-wecom-cli/package.json')"), 'patch must resolve the installed package before locating skills', errors)
+  check(!patch.includes("new URL('skills/', baseUrl)"), 'patch must not resolve skills relative to the composed Profile', errors)
   check(!/\b(disabled|remove|replace):/.test(patch), 'patch must not disable, remove, or replace rows', errors)
 
   const index = await readFile(join(root, 'index.mjs'), 'utf8')
   const bridge = await readFile(join(root, 'lib/bridge.mjs'), 'utf8')
   check(index.includes("name: 'wecom_cli_read'"), 'Host must register wecom_cli_read', errors)
   check(index.includes("inject = ['tools', 'subprocess']"), 'Host must inject tools and the official subprocess service', errors)
+  check(index.includes("data: { type: 'json', required: true }"), 'Host output data must use a supported explicit JSON schema', errors)
   check(bridge.includes('subprocess.spawn({'), 'bridge must use the official DSH subprocess service', errors)
   check(bridge.includes('argv: [executable, ...argv]'), 'bridge must spawn with a fixed argv array', errors)
   check(!bridge.includes('node:child_process'), 'bridge must not import Node child_process directly', errors)

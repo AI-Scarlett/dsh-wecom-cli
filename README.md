@@ -2,9 +2,9 @@
 
 将企业微信官方 `@wecom/cli` 的有限只读查询能力通过标准 DSH Host Tool 和 14 个隔离 Skill 接入 DeepSeek Harness。
 
-## v0.1.2 安全模式
+## v0.1.3 安全兼容模式
 
-v0.1.2 不再让 Skill 直接描述或运行外部命令。所有执行统一经过 Host Tool `wecom_cli_read`：
+v0.1.3 延续只读安全边界，并修复 Git 安装后的冷启动契约：`@deepseek-ai/dsh-tools` 现在作为可解析的运行时依赖安装，Skills 从已安装的 `dsh-wecom-cli/package.json` 定位，不再错误地相对 Profile 根目录解析，Tool 的 `data` 输出也改为 rc.7 支持的显式 JSON Schema。所有执行统一经过 Host Tool `wecom_cli_read`：
 
 - 使用 DSH 官方 `ctx.subprocess` 服务和固定 argv；不存在 Shell 解释。
 - 只开放冻结的只读 operation allowlist。
@@ -37,4 +37,4 @@ v0.1.2 不再让 Skill 直接描述或运行外部命令。所有执行统一经
 
 ## 上游与许可证
 
-Skill 名称与领域划分源自 [WeComTeam/wecom-cli](https://github.com/WecomTeam/wecom-cli) 的 MIT 许可版本；v0.1.2 已删除原始可执行参考、模板和 Python 辅助脚本，改写为 Host Tool 安全入口。详情见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+Skill 名称与领域划分源自 [WeComTeam/wecom-cli](https://github.com/WecomTeam/wecom-cli) 的 MIT 许可版本；v0.1.3 保持删除原始可执行参考、模板和 Python 辅助脚本后的 Host Tool 安全入口。详情见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
