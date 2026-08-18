@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "intent": "approved-listing",
+  "phase": "prepare",
+  "plugin": {
+    "root": ".",
+    "repositoryUrl": "https://github.com/WecomTeam/dsh-wecom-cli",
+    "manifestPath": "package.json",
+    "installPath": null,
+    "packageName": "dsh-wecom-cli",
+    "version": "0.1.0",
+    "commit": null,
+    "entryIds": ["dsh-wecom-cli-skill-provider"]
+  },
+  "registry": {
+    "root": "https://github.com/AI-Scarlett/dsh-safe-plugin-manager",
+    "catalogPath": "registry/catalog.json",
+    "baseCommit": null,
+    "entryId": "dsh-wecom-cli",
+    "status": "approved"
+  },
+  "gates": {
+    "hostFit": "adapter-compatible",
+    "sourceContract": "prepared",
+    "automatedChecks": "unverified",
+    "disposableRuntime": "unverified",
+    "immutableSource": "unverified",
+    "catalogCandidate": "unverified",
+    "registryCi": "unverified",
+    "mergedCatalog": "unverified",
+    "publicMarketplace": "unverified",
+    "realProfile": "unchanged"
+  },
+  "evidence": [],
+  "nextGate": "Run automated checks and disposable DSH acceptance",
+  "authorizations": {
+    "repositoryRelease": "unverified-owner-and-credentials",
+    "registryContribution": "requested-by-user; exact mutation plan still required",
+    "realProfileMutation": false
+  }
+}

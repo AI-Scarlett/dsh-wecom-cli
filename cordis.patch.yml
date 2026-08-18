@@ -1,0 +1,9 @@
+- insert:
+    - id: dsh-wecom-cli-skill-provider
+      name: '@deepseek-ai/dsh-skill-filesystem'
+      config:
+        providerName: dsh-wecom-cli
+        includeDefaultRoots: false
+        customSkillDirs:
+          - !!js "process.getBuiltinModule('node:url').fileURLToPath(new URL('skills/', baseUrl))"
+        watch: false

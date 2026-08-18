@@ -1,0 +1,18 @@
+{
+  "dumpConfig": {
+    "verified": true,
+    "evidence": "2026-08-18: DSH_HOME=/Users/zhouxiaoming/Documents/DSH插件商城/.e3-dsh-home; official dsh rc.7 CLI installed link:dsh-wecom-cli into disposable profile wecom-e3; --dump-config exited 0 and contained dsh-wecom-cli-skill-provider/providerName dsh-wecom-cli."
+  },
+  "isolatedRuntime": {
+    "verified": true,
+    "evidence": "2026-08-18: disposable profile cold start remained alive without stderr until the 60s harness timeout; official @deepseek-ai/dsh-skill-filesystem rc.7 FileSystemSkillProvider discovered and loaded all 14 Skills with zero warnings."
+  },
+  "realProfile": {
+    "verified": false,
+    "evidence": "Not authorized or required; real Profile unchanged."
+  },
+  "externalReadback": {
+    "verified": false,
+    "evidence": "No enterprise WeCom account, credential, network, or business-write acceptance was performed."
+  }
+}
