@@ -1,7 +1,7 @@
 {
   "dumpConfig": {
     "verified": true,
-    "evidence": "2026-08-18: official DSH rc.7 CLI installed local v0.1.2 into disposable web and headless Profiles under workspace .e3-v011; both --dump-config outputs contained dsh-wecom-cli-host and dsh-wecom-cli-skill-provider."
+    "evidence": "2026-08-18: official DSH rc.7 CLI installed local v0.1.3 into a disposable web Profile; dump-config contained both Bundle entries, cold boot stayed running on port 3081, root and official session-log-export Client returned HTTP 200, and all 14 Skills loaded with zero warnings."
   },
   "isolatedRuntime": {
     "verified": true,

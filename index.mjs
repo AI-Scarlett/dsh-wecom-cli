@@ -8,7 +8,7 @@ export function apply(ctx) {
   const bridge = createWecomReadBridge({ subprocess: ctx.subprocess })
   ctx.tools.register(defineTool({
     name: 'wecom_cli_read',
-    description: 'Run one bounded, read-only, allowlisted official WeCom CLI operation. This is the only supported execution path for dsh-wecom-cli v0.1.2. It rejects writes, uploads, downloads, arbitrary commands, secrets, local paths, effectful formulas, broad SQL, and shell syntax.',
+    description: 'Run one bounded, read-only, allowlisted official WeCom CLI operation. This is the only supported execution path for dsh-wecom-cli v0.1.3. It rejects writes, uploads, downloads, arbitrary commands, secrets, local paths, effectful formulas, broad SQL, and shell syntax.',
     parameters: {
       operation: {
         type: 'string',
@@ -34,7 +34,7 @@ export function apply(ctx) {
           ok: { type: 'boolean', required: true },
           operation: { type: 'string', required: true },
           summary: { type: 'string', required: true },
-          data: {},
+          data: { type: 'json', required: true },
           truncated: { type: 'boolean', required: true },
         },
       },
