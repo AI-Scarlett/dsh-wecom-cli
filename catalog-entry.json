@@ -6,7 +6,7 @@
   "repositoryUrl": "https://github.com/AI-Scarlett/dsh-wecom-cli",
   "defaultBranch": "main",
   "manifestPath": "package.json",
-  "commit": "1b905cefbab874c2c88c7778e2f9df0bfad5b300",
+  "commit": "5c266b0e55c485dd9c46583a466be1b6769d635d",
   "version": "0.1.2",
   "categories": ["tools", "workflow", "notifications"],
   "featured": false,
