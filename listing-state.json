@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
   "intent": "approved-listing",
-  "phase": "prepare",
+  "phase": "candidate",
   "plugin": {
     "root": ".",
-    "repositoryUrl": "https://github.com/WecomTeam/dsh-wecom-cli",
+    "repositoryUrl": "https://github.com/AI-Scarlett/dsh-wecom-cli",
     "manifestPath": "package.json",
     "installPath": null,
     "packageName": "dsh-wecom-cli",
     "version": "0.1.0",
-    "commit": null,
+    "commit": "da265360b12daffea9894da49550d4684e58d685",
     "entryIds": ["dsh-wecom-cli-skill-provider"]
   },
   "registry": {
@@ -21,18 +21,18 @@
   },
   "gates": {
     "hostFit": "adapter-compatible",
-    "sourceContract": "prepared",
-    "automatedChecks": "unverified",
-    "disposableRuntime": "unverified",
-    "immutableSource": "unverified",
-    "catalogCandidate": "unverified",
+    "sourceContract": "passed",
+    "automatedChecks": "passed",
+    "disposableRuntime": "passed-web-headless",
+    "immutableSource": "local-commit-only",
+    "catalogCandidate": "prepared",
     "registryCi": "unverified",
     "mergedCatalog": "unverified",
     "publicMarketplace": "unverified",
     "realProfile": "unchanged"
   },
-  "evidence": [],
-  "nextGate": "Run automated checks and disposable DSH acceptance",
+  "evidence": ["evidence.json", "docs/VERIFICATION.md"],
+  "nextGate": "Publish the exact local Commit to an authorized public GitHub repository",
   "authorizations": {
     "repositoryRelease": "unverified-owner-and-credentials",
     "registryContribution": "requested-by-user; exact mutation plan still required",
