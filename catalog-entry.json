@@ -7,7 +7,7 @@
   "defaultBranch": "main",
   "manifestPath": "package.json",
   "commit": "1b905cefbab874c2c88c7778e2f9df0bfad5b300",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "categories": ["tools", "workflow", "notifications"],
   "featured": false,
   "entryIds": ["dsh-wecom-cli-host", "dsh-wecom-cli-skill-provider"],

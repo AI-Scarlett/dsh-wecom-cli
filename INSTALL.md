@@ -8,7 +8,7 @@
 
 ## DSH adapter
 
-只使用 DSH Store 中固定到 40 位 Commit 的版本。v0.1.0 已临时阻止安装；v0.1.1 在完成固定源码和 disposable E3 前不得恢复为 approved。
+只使用 DSH Store 中固定到 40 位 Commit 的版本。v0.1.0 已临时阻止安装；v0.1.2 在完成固定源码和 disposable E3 前不得恢复为 approved。
 
 ## Acceptance
 

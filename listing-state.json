@@ -8,7 +8,7 @@
     "manifestPath": "package.json",
     "installPath": null,
     "packageName": "dsh-wecom-cli",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "commit": "1b905cefbab874c2c88c7778e2f9df0bfad5b300",
     "entryIds": ["dsh-wecom-cli-host", "dsh-wecom-cli-skill-provider"]
   },
@@ -33,10 +33,10 @@
     "realProfile": "unchanged",
     "externalAccount": "unverified"
   },
-  "nextGate": "Publish and read back the exact v0.1.1 Commit, then run current Registry validation and fixed-source verification",
+  "nextGate": "Publish and read back the exact v0.1.2 Commit, then run current Registry validation and fixed-source verification",
   "authorizations": {
     "repositoryRelease": "authorized-by-user",
-    "registryContribution": "authorized-by-user-for-v0.1.1-hardening",
+    "registryContribution": "authorized-by-user-for-v0.1.2-hardening",
     "realProfileMutation": false
   }
 }

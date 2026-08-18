@@ -23,7 +23,7 @@ export async function verifyAdapter(root) {
   const patchRel = manifest?.dsh?.bundle?.patch
 
   check(manifest.name === 'dsh-wecom-cli', 'unexpected package name', errors)
-  check(manifest.version === '0.1.1', 'unexpected package version', errors)
+  check(manifest.version === '0.1.2', 'unexpected package version', errors)
   check(manifest.main === './index.mjs', 'Host entry must be ./index.mjs', errors)
   check(manifest.license === 'MIT', 'license must be MIT', errors)
   check(patchRel === './cordis.patch.yml', 'dsh.bundle.patch must be ./cordis.patch.yml', errors)

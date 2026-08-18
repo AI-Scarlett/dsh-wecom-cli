@@ -1,7 +1,7 @@
 {
   "dumpConfig": {
     "verified": true,
-    "evidence": "2026-08-18: official DSH rc.7 CLI installed local v0.1.1 into disposable web and headless Profiles under workspace .e3-v011; both --dump-config outputs contained dsh-wecom-cli-host and dsh-wecom-cli-skill-provider."
+    "evidence": "2026-08-18: official DSH rc.7 CLI installed local v0.1.2 into disposable web and headless Profiles under workspace .e3-v011; both --dump-config outputs contained dsh-wecom-cli-host and dsh-wecom-cli-skill-provider."
   },
   "isolatedRuntime": {
     "verified": true,

@@ -1,6 +1,6 @@
 # Verification Status
 
-- Version under test: `dsh-wecom-cli@0.1.1`.
+- Version under test: `dsh-wecom-cli@0.1.2`.
 - Host fit: adapter-required, now implemented as Host Tool + Skill provider.
 - Risk: R2 / high.
 - Real Profile: unchanged.
@@ -26,11 +26,11 @@
 
 ## Security scope
 
-v0.1.1 is deliberately read-only. Sends, creates, updates, deletes, cancels, overwrites, imports, uploads, downloads, Webhooks, SQL and effectful formulas remain unavailable. They must not be restored without operation-specific schemas, DSH one-shot approvals, bounded artifacts, stale-target checks and separate E5 evidence.
+v0.1.2 is deliberately read-only. Sends, creates, updates, deletes, cancels, overwrites, imports, uploads, downloads, Webhooks, SQL and effectful formulas remain unavailable. They must not be restored without operation-specific schemas, DSH one-shot approvals, bounded artifacts, stale-target checks and separate E5 evidence.
 
 ## Remaining gates
 
-1. Commit and publish the exact v0.1.1 source.
+1. Commit and publish the exact v0.1.2 source.
 2. Recreate the catalog candidate from the public 40-character Commit.
 3. Run Registry validation/source verification and update the blocked entry.
 4. Only restore `approved` if current audits and public readback support the reduced read-only contract.

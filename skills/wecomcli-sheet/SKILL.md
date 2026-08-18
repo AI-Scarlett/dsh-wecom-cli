@@ -1,9 +1,9 @@
 ---
 name: wecomcli-sheet
-description: 只读查询企业微信在线表格元信息和有界范围。v0.1.1 暂停创建、导入、更新、追加和子表变更。
+description: 只读查询企业微信在线表格元信息和有界范围。v0.1.2 暂停创建、导入、更新、追加和子表变更。
 ---
 
-# wecomcli-sheet（v0.1.1 安全只读模式）
+# wecomcli-sheet（v0.1.2 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 

@@ -60,9 +60,10 @@ test('redacts identifiers, absolute paths, secrets, and capability URLs from out
   const { bridge } = harness({
     code: 0,
     stderr: '',
-    stdout: JSON.stringify({ userid: 'u1', file_path: '/tmp/a', attach_url: 'https://host/x?sig=y', password: 'p', nested: { docid: 'd1', name: 'Readable' } }),
+    stdout: JSON.stringify({ id: 'generic-id', userid: 'u1', file_path: '/tmp/a', attach_url: 'https://host/x?sig=y', password: 'p', nested: { docid: 'd1', name: 'Readable' } }),
   })
   const out = await bridge.execute({ operation: 'mail_get', input: { subject: 'hello' } })
+  assert.equal(out.data.id, '[redacted-id]')
   assert.equal(out.data.userid, '[redacted-id]')
   assert.equal(out.data.file_path, '[redacted-path]')
   assert.equal(out.data.attach_url, '[redacted-url]')
@@ -109,4 +110,23 @@ test('uses the official managed subprocess contract without env or spill', async
   assert.deepEqual(specs[0].stdio.stdout, { maxBytes: LIMITS.maxOutputBytes })
   assert.equal('spill' in specs[0].stdio.stdout, false)
   assert.equal(specs[0].env, undefined)
+})
+
+test('fails closed on malformed or empty business output without returning raw text', async () => {
+  for (const stdout of ['not-json token=secret', '']) {
+    const { bridge } = harness({ code: 0, stdout, stderr: '' })
+    await assert.rejects(
+      () => bridge.execute({ operation: 'doc_search', input: { keyword: 'safe' } }),
+      (error) => error.code === 'MALFORMED_OUTPUT' && !error.message.includes('token=secret'),
+    )
+  }
+})
+
+test('normalizes version and authorization status instead of returning raw output', async () => {
+  const versionHarness = harness({ code: 0, stdout: 'wecom-cli v1.1.0 local=/private/path', stderr: '' })
+  const version = await versionHarness.bridge.execute({ operation: 'status' })
+  assert.deepEqual(version.data, { version: '1.1.0' })
+  const authHarness = harness({ code: 0, stdout: 'unauthorized token=secret', stderr: '' })
+  const auth = await authHarness.bridge.execute({ operation: 'auth_status' })
+  assert.deepEqual(auth.data, { status: 'unauthorized' })
 })

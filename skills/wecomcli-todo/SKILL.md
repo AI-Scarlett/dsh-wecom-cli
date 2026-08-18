@@ -1,9 +1,9 @@
 ---
 name: wecomcli-todo
-description: 只读查询企业微信待办。v0.1.1 暂停创建、更新、完成和删除。
+description: 只读查询企业微信待办。v0.1.2 暂停创建、更新、完成和删除。
 ---
 
-# wecomcli-todo（v0.1.1 安全只读模式）
+# wecomcli-todo（v0.1.2 安全只读模式）
 
 执行前必须读取 `wecomcli-shared`。只能调用 Host Tool `wecom_cli_read`，不得直接执行 CLI、Shell、Python 或网络工具。
 

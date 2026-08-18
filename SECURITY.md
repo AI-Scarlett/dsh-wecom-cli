@@ -2,7 +2,7 @@
 
 ## Trust boundaries
 
-本包注册 DSH Host Tool `wecom_cli_read` 并挂载 14 个 Skill。外部官方 `wecom-cli` 仍可能访问企业账号、加密凭据和企业微信网络服务，但 v0.1.1 只允许有限只读调用。
+本包注册 DSH Host Tool `wecom_cli_read` 并挂载 14 个 Skill。外部官方 `wecom-cli` 仍可能访问企业账号、加密凭据和企业微信网络服务，但 v0.1.2 只允许有限只读调用。
 
 ## Enforced controls
 
