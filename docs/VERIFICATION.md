@@ -6,7 +6,8 @@
 - Tool card decision: not applicable; this package registers no model Tool or custom Client card.
 - Real Profile: unchanged.
 - External account: unverified.
-- Registry PR/merge/public page: not submitted/not merged/not verified.
+- Registry PR: [#34](https://github.com/AI-Scarlett/dsh-safe-plugin-manager/pull/34), validate passed; CodeQL pending.
+- Registry merge/public page: not merged/not verified.
 
 ## E2 automated evidence
 
@@ -27,8 +28,7 @@
 
 ## Remaining listing gates
 
-1. Verify which GitHub owner/repository is authorized for publication.
-2. Publish the exact adapter source to that repository and pin a 40-character Commit.
-3. Generate the final catalog candidate from the remote Commit.
-4. Run Registry source verification, submit the issue/PR under a single-use plan, wait for CI/merge, and read back the public marketplace.
-5. External WeCom account capability remains a separate E5 surface and is not required to prove Skill mounting, but must be described as unverified.
+1. Wait for Registry PR #34 CodeQL and required checks.
+2. Merge the PR only when checks remain green.
+3. Read back merged GitHub catalog and the public DSH-Store page.
+4. External WeCom account capability remains a separate E5 surface and is not required to prove Skill mounting, but must be described as unverified.

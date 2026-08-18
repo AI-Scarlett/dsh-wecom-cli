@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "intent": "approved-listing",
-  "phase": "candidate",
+  "phase": "pr-pending",
   "plugin": {
     "root": ".",
     "repositoryUrl": "https://github.com/AI-Scarlett/dsh-wecom-cli",
@@ -15,27 +15,29 @@
   "registry": {
     "root": "https://github.com/AI-Scarlett/dsh-safe-plugin-manager",
     "catalogPath": "registry/catalog.json",
-    "baseCommit": null,
+    "baseCommit": "3de278238dc03f1e49e6924d4750bcb566fb24da",
     "entryId": "dsh-wecom-cli",
-    "status": "approved"
+    "status": "approved",
+    "pullRequest": "https://github.com/AI-Scarlett/dsh-safe-plugin-manager/pull/34",
+    "contributionCommit": "3b68d38606a5546f74909ccf0298256652cfbb1d"
   },
   "gates": {
     "hostFit": "adapter-compatible",
     "sourceContract": "passed",
     "automatedChecks": "passed",
     "disposableRuntime": "passed-web-headless",
-    "immutableSource": "local-commit-only",
-    "catalogCandidate": "prepared",
-    "registryCi": "unverified",
+    "immutableSource": "remote-verified",
+    "catalogCandidate": "passed",
+    "registryCi": "pending-codeql; validate-passed",
     "mergedCatalog": "unverified",
     "publicMarketplace": "unverified",
     "realProfile": "unchanged"
   },
   "evidence": ["evidence.json", "docs/VERIFICATION.md"],
-  "nextGate": "Publish the exact local Commit to an authorized public GitHub repository",
+  "nextGate": "Wait for PR 34 CI, merge, then read back remote catalog and dsh.store",
   "authorizations": {
-    "repositoryRelease": "unverified-owner-and-credentials",
-    "registryContribution": "requested-by-user; exact mutation plan still required",
+    "repositoryRelease": "authorized-personal-github",
+    "registryContribution": "single-use-confirmation-consumed",
     "realProfileMutation": false
   }
 }
