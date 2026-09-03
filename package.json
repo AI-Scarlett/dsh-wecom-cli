@@ -1,6 +1,6 @@
 {
   "name": "dsh-wecom-cli",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Controlled read-only DSH Host bridge and Skill adapter for the official WeCom CLI",
   "type": "module",
   "main": "./index.mjs",
@@ -29,10 +29,15 @@
     "client": {
       "platform": "web",
       "inject": [
-        "@deepseek-ai/dsh-client-runtime",
         "@deepseek-ai/dsh-client-ui-slots",
         "@deepseek-ai/dsh-client-ui-settings"
       ]
+    },
+    "compatibility": {
+      "dsh": ">=0.1.2-rc.1 <0.2.0",
+      "dshReleases": {
+        "0.1.2-rc.1": "compatible"
+      }
     }
   },
   "engines": {
@@ -43,7 +48,7 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@deepseek-ai/dsh-tools": "^0.1.0-rc.7"
+    "@deepseek-ai/dsh-tools": ">=0.1.2-rc.1 <0.2.0"
   },
   "repository": {
     "type": "git",

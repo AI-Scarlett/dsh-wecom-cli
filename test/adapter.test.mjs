@@ -15,7 +15,7 @@ test('adapter verifies the Host bridge and all 14 safe Skill entrypoints', async
 
 test('manifest exposes a Host entry and has no install-time lifecycle execution', async () => {
   const manifest = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'))
-  assert.equal(manifest.version, '0.3.0')
+  assert.equal(manifest.version, '0.3.1')
   assert.equal(manifest.main, './index.mjs')
   assert.ok(manifest.dependencies['@deepseek-ai/dsh-tools'])
   assert.equal(manifest.peerDependencies?.['@deepseek-ai/dsh-tools'], undefined)
@@ -28,7 +28,7 @@ test('manifest exposes a Web Client without making Web mandatory for Host boot',
   assert.equal(manifest.exports['./client'], './client.js')
   assert.equal(manifest.dsh.client.platform, 'web')
   assert.match(host, /ctx\.inject\(\['webServer'\]/)
-  assert.deepEqual(JSON.parse(JSON.stringify(manifest.dsh.client.inject)), ['@deepseek-ai/dsh-client-runtime', '@deepseek-ai/dsh-client-ui-slots', '@deepseek-ai/dsh-client-ui-settings'])
+  assert.deepEqual(JSON.parse(JSON.stringify(manifest.dsh.client.inject)), ['@deepseek-ai/dsh-client-ui-slots', '@deepseek-ai/dsh-client-ui-settings'])
 })
 
 test('Bundle resolves Skills from the installed package instead of the composed Profile', async () => {
